@@ -11,10 +11,9 @@ mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
 
-app.get('/makeCampground', (req, res) => {
-    const camp = new Campground({ title: 'My Backyard'});
-    console.log(camp);
-    res.send(camp);
+app.get('/campgrounds', async (req, res) => {
+    const campgrounds = await Campground.find({});
+    res.render("campgrounds/index", { campgrounds });
 })
 
 app.get('/', (req, res) => {
