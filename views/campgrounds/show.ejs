@@ -11,6 +11,11 @@
     <p>
         <a href="/campgrounds/<%= campground.id %>/edit">Edit</a>
     </p>
+    <p>
+        <form action="/campgrounds/<%= campground.id %>?_method=DELETE" method="post">
+            <button>Delete</button>
+        </form>
+    </p>
     <a href="/campgrounds">All Camps</a>
 </body>
 </html>

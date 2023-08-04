@@ -43,8 +43,13 @@ app.post('/campgrounds', async (req, res) => {
 app.patch('/campgrounds/:id', async (req, res) => {
     const camp = await Campground.findByIdAndUpdate(req.params.id, { ...req.body.campground });
     res.redirect(`/campgrounds/${camp.id}`);
-
 });
+
+app.delete('/campgrounds/:id', async (req, res) => {
+    const { id } = req.params;
+    await Campground.findByIdAndDelete(id);
+    res.redirect('/campgrounds');
+})
 
 app.get('/', (req, res) => {
     res.render("home");
