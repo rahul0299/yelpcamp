@@ -11,6 +11,8 @@ const { campgroundJoiSchema, reviewJoiSchema } = require('./schemas');
 const Review = require('./models/review');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
     .then(() => console.log("Connected to DB"))
@@ -23,6 +25,25 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
+
+const sessionConfig = {
+    secret: "mySecret",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+}
+app.use(session(sessionConfig));
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
 
 app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/reviews', reviewRoutes);
@@ -32,6 +53,7 @@ app.get('/', (req, res) => {
 });
 
 app.all('*', (req, res, next) => {
+    console.log(req.url);
     next(new ExpressError('Page Not Found', 404));
 })
 
