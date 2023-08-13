@@ -16,10 +16,10 @@ const campgroundSchema = new Schema({
     ]
 });
 
-campgroundSchema.pre('findOneAndDelte', async function(doc) {
+campgroundSchema.post('findOneAndDelete', async function(doc) {
     if (doc) {
-        await Review.remove({
-            _id: { $in: doc.reviews }
+        await Review.deleteMany({
+            id: { $in: doc.reviews }
         });
     }
 });
