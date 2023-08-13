@@ -82,6 +82,14 @@ app.patch('/campgrounds/:id', validateCampground, catchAsync(async (req, res) =>
     res.redirect(`/campgrounds/${camp.id}`);
 }));
 
+app.delete('/campgrounds/:campId/reviews/:reviewId', catchAsync(async (req, res) => {
+    const { campId, reviewId } = req.params;
+    await Campground.findByIdAndUpdate(campId, { $pull: { reviews: reviewId }});
+    await Review.findByIdAndDelete(reviewId);
+
+    res.redirect(`/campgrounds/${campId}`);
+}));
+
 app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
