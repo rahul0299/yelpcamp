@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Review = require('./review');
 
 const campgroundSchema = new Schema({
     title: String,
@@ -14,6 +15,15 @@ const campgroundSchema = new Schema({
         }
     ]
 });
+
+campgroundSchema.pre('findOneAndDelte', async function(doc) {
+    if (doc) {
+        await Review.remove({
+            _id: { $in: doc.reviews }
+        });
+    }
+});
+
 
 const Campground = mongoose.model('Campground', campgroundSchema);
 
