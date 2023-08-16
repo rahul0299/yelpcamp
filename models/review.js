@@ -6,6 +6,10 @@ const reviewSchema = new mongoose.Schema({
     },
     rating: {
         type: Number
+    },
+    author: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'User'
     }
 });
 

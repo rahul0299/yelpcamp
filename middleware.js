@@ -1,4 +1,5 @@
 const Campground = require('./models/campground');
+const Review = require('./models/review');
 const { campgroundJoiSchema, reviewJoiSchema } = require('./schemas');
 const ExpressError = require('./utils/ExpressError');
 
@@ -26,6 +27,17 @@ module.exports.isAuthor = async (req, res, next) => {
     if (!camp.author.equals(req.user.id)) {
         req.flash('error', 'You do not have permission to do that');
         return res.redirect(`/campgrounds/${camp.id}`);
+    }
+
+    next();
+}
+
+module.exports.isReviewAuthor = async (req, res, next) => {
+    const { id, reviewId } = req.params;
+    const review = await Review.findById(reviewId);
+    if (!review.author.equals(req.user.id)) {
+        req.flash('error', 'You do not have permission to do that');
+        return res.redirect(`/campgrounds/${id}`);
     }
 
     next();
