@@ -50,7 +50,15 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateCampground = async (req, res) => {
     const { id } = req.params;
+    const images = req.files.map(file => {
+        return {
+            url: file.path,
+            filename: file.filename
+        }
+    });
     const camp = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
+    camp.images.push(...images);
+    await camp.save();
     req.flash("success", "Successfully updated campground");
     res.redirect(`/campgrounds/${camp.id}`);
 };

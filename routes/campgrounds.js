@@ -14,7 +14,7 @@ router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditF
 
 router.route('/:id')
     .get(catchAsync(campgrounds.showCampground))
-    .patch(isLoggedIn, isAuthor, validateCampground, catchAsync(campgrounds.updateCampground))
+    .patch(isLoggedIn, isAuthor, upload.array('image'), validateCampground, catchAsync(campgrounds.updateCampground))
     .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground));
 
 router.route('/')
