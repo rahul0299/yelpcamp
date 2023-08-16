@@ -33,6 +33,7 @@ const seedDB = async () => {
     for (let i = 0; i < 5; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const camp = new Campground({
+            author: '64dbe923dc52e75855ba6a08',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${getRandom(descriptors)} ${getRandom(places)}`,
             image: await getImgUrl(),

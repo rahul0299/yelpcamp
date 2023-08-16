@@ -13,7 +13,11 @@ const campgroundSchema = new Schema({
             type: mongoose.SchemaTypes.ObjectId,
             ref: 'Review'
         }
-    ]
+    ],
+    author: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'User'
+    }
 });
 
 campgroundSchema.post('findOneAndDelete', async function(doc) {
