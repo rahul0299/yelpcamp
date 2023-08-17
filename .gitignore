@@ -7549,3 +7549,8 @@ node_modules/yargs-parser/LICENSE.txt
 node_modules/yargs-parser/package.json
 node_modules/yargs-parser/README.md
 node_modules/yargs-parser/lib/tokenize-arg-string.js
+node_modules/express-mongo-sanitize/index.d.ts
+node_modules/express-mongo-sanitize/index.js
+node_modules/express-mongo-sanitize/LICENSE
+node_modules/express-mongo-sanitize/package.json
+node_modules/express-mongo-sanitize/README.md
