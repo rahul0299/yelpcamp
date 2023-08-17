@@ -30,13 +30,19 @@ const getImgUrl = async () => {
 
 const seedDB = async () => {
     await Campground.deleteMany({});
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 50; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const camp = new Campground({
             author: '64dd0593890f6cf75f190438',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${getRandom(descriptors)} ${getRandom(places)}`,
-            geometry:{type:"Point", coordinates:[77.209006,28.613895]},
+            geometry: {
+                type:"Point", 
+                coordinates:[
+                    cities[random1000].longitude,
+                    cities[random1000].latitude
+                ]
+            },
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis est modi, facere sit eius amet provident ab reprehenderit quos nemo optio culpa cum aspernatur suscipit eveniet. Eveniet quod quas similique.",
             price: Math.floor(Math.random() * 20) + 10,
             images: [
