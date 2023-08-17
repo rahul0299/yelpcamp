@@ -7907,3 +7907,12 @@ node_modules/source-map-js/lib/source-map-consumer.js
 node_modules/source-map-js/lib/source-map-generator.js
 node_modules/source-map-js/lib/source-node.js
 node_modules/source-map-js/lib/util.js
+node_modules/helmet/CHANGELOG.md
+node_modules/helmet/index.cjs
+node_modules/helmet/index.d.cts
+node_modules/helmet/index.d.mts
+node_modules/helmet/index.mjs
+node_modules/helmet/LICENSE
+node_modules/helmet/package.json
+node_modules/helmet/README.md
+node_modules/helmet/SECURITY.md

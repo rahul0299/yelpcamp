@@ -8,9 +8,9 @@
         <div class="row">
             <div class="col-md-4">
                 <% if (campground.images.length) { %>
-                    <img src="<%= campground.images[0].url %>" class="img-fluid" alt="">
+                    <img crossorigin="anonymous" src="<%= campground.images[0].url %>" class="img-fluid" alt="">
                 <% } else { %>
-                    <img src="https://giffiles.alphacoders.com/208/208892.gif" class="img-fluid">
+                    <img crossorigin="anonymous" src="https://giffiles.alphacoders.com/208/208892.gif" class="img-fluid">
                 <% } %>
             </div>
             <div class="col-md-8">
