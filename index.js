@@ -25,7 +25,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const MongoStore = require('connect-mongo');
 
-const dbUrl = process.env.NODE_ENV || "mongodb://127.0.0.1:27017/yelp-camp";
+const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/yelp-camp";
 const secret = process.env.SECRET || "mySecret";
 
 mongoose.connect(dbUrl)
