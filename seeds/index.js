@@ -4,10 +4,8 @@ const User = require('../models/user');
 const Review = require('../models/review');
 const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
-const { accessKey } = require('../secret/access-key');
 const { usernames } = require('./users');
 const { images } = require('./images');
-const user = require('../models/user');
 const { reviews } = require('./reviews');
 
 mongoose.connect(process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelp-camp')
