@@ -16,31 +16,12 @@ mongoose.connect(process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelp-camp')
 
 const getRandom = (array) => array[Math.floor(Math.random() * array.length)];
 
-const getImgUrl = async () => {
-    const collection = "DSpWkevZa94";
-    const url = `https://api.unsplash.com/photos/random?client_id=${accessKey}&collections=${collection}`;
-    const headers = {
-        'Accept-Version': 'v1'
-    };
-
-    const imgUrl = await fetch(url, { headers })
-        .then(res => {
-            return res.json()
-        })
-        .then(data => {
-            return data.urls.regular;
-        });
-
-    return imgUrl;
-}
-
 const seedDB = async () => {
     // clean the DB
     await User.deleteMany({});
     await Campground.deleteMany({});
     await Review.deleteMany({});
     
-
     // add new users
     const users = [];
     const campgrounds = [];
