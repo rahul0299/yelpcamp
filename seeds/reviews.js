@@ -1,0 +1,22 @@
+module.exports.reviews = [
+    "Well-maintained facilities and clean restrooms.",
+    "Impressive variety of plant life around the campsite.",
+    "Perfect spot for a romantic camping weekend.",
+    "Great for families with children, lots of activities.",
+    "Friendly campsite hosts added a personal touch.",
+    "Sunset views over the mountains are Instagram-worthy!",
+    "Quiet and peaceful surroundings ideal for relaxation.",
+    "Campsites offer a good balance of shade and sunlight.",
+    "Ideal location for a photography workshop.",
+    "Close to a scenic waterfall, a natural wonder.",
+    "Spent the night stargazing by the campfire.",
+    "Trail markers made it easy to explore the area.",
+    "Loved the communal vibe during group campfire sessions.",
+    "A haven for birdwatchers spotted rare species.",
+    "Kid-friendly activities kept the little ones entertained.",
+    "Trail maintenance is top-notch, no obstacles or overgrowth.",
+    "Perfect location for a digital detox. No cell service!",
+    "Easy access to a pristine river for water activities.",
+    "Enjoyed the ranger-led nature walk, educational and fun.",
+    "Trail intersections are well-signed for easy navigation."
+  ]

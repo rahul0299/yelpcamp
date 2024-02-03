@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
 const Campground = require('../models/campground');
+const User = require('../models/user');
+const Review = require('../models/review');
 const cities = require('./cities');
 const { places, descriptors } = require('./seedHelpers');
 const { accessKey } = require('../secret/access-key');
+const { usernames } = require('./users');
+const { images } = require('./images');
+const user = require('../models/user');
+const { reviews } = require('./reviews');
 
 mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
     .then(() => console.log("Connected to DB"))
@@ -29,11 +35,32 @@ const getImgUrl = async () => {
 }
 
 const seedDB = async () => {
+    // clean the DB
+    await User.deleteMany({});
     await Campground.deleteMany({});
+    await Review.deleteMany({});
+    
+
+    // add new users
+    const users = [];
+    const campgrounds = [];
+
+    for (let i=0;i<usernames.length;i++) {
+        const username = usernames[i];
+        const email = `${username}@gmail.com`;
+        const password = username;
+
+        const newUser = new User({ email, username });
+        const registeredUser = await User.register(newUser, password);
+        users.push(registeredUser);
+    }
+    console.log("new users created");
+
+    // add new camps
     for (let i = 0; i < 200; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
         const camp = new Campground({
-            author: '64dd0593890f6cf75f190438',
+            author: getRandom(users)._id,
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${getRandom(descriptors)} ${getRandom(places)}`,
             geometry: {
@@ -46,19 +73,37 @@ const seedDB = async () => {
             description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis est modi, facere sit eius amet provident ab reprehenderit quos nemo optio culpa cum aspernatur suscipit eveniet. Eveniet quod quas similique.",
             price: Math.floor(Math.random() * 20) + 10,
             images: [
-                {
-                    url: 'https://res.cloudinary.com/dmaa2vq0i/image/upload/v1692201648/yelpcamp/so4veut9bkekiiuim46r.jpg',
-                    filename: 'yelpcamp/so4veut9bkekiiuim46r'
-                  },
-                  {
-                    url: 'https://res.cloudinary.com/dmaa2vq0i/image/upload/v1692201673/yelpcamp/kccaz5usfc3j5bh5sgil.jpg',
-                    filename: 'yelpcamp/kccaz5usfc3j5bh5sgil'
-                  }
+                getRandom(images),
+                getRandom(images)
             ]
         });
-        await camp.save(); 
+        await camp.save();
+        campgrounds.push(camp);
     }
-    console.log("camps added")
+    console.log("new camps created");
+
+    // add new reviews
+    for (let i=0;i<200;i++) {
+        let author = getRandom(users);
+        let campground = await Campground.findById(getRandom(campgrounds)._id);
+        const reviewBody = getRandom(reviews);
+
+        while (campground.author == author) {
+            author = getRandom(users);
+        }
+
+        const review = new Review({
+            author: author._id,
+            body: reviewBody,
+            rating: Math.floor(Math.random() * 10) % 3 + 3
+        })
+
+        const newReview = await review.save();
+    
+        campground.reviews.push(newReview._id);
+        await campground.save();
+    }
+    console.log("reviews added")
 }
 
 seedDB()
